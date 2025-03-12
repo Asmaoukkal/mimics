@@ -175,7 +175,7 @@ final class AdminController extends AbstractController
         ]);       
     }
 
-
+          
 
     //                              1
     #[Route('/admin/category/update/{id}', name: 'app_admin_category_update')]

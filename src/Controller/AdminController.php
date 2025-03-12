@@ -172,7 +172,7 @@ final class AdminController extends AbstractController
         return $this->render('admin/category.html.twig', [
             'categoryForm' => $form,
             'dbCategory' => $dbCategory
-        ]);
+        ]);       
     }
 
 

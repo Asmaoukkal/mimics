@@ -2,32 +2,56 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AppController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager, ProductRepository $repoProducts): Response
     {
         /**
          * EXO : 
          * 1-selection tous les produits de la table product de la BDD
-         * 2-transmettre les produits à la vueau template les produit selectionnes (render())
+         * 2-transmettre les produits à la vue au template les produit selectionnes (render())
          * 3-realise le tratrement permettant d'afficher les produits dans dans le template 'app/index.html.twig'
          * 4-creer une nouvelle methode appproductDetails avec la route 'app/product/details/{id}' qui permet d'afficher les details d'un produit
          * 5-selectionner en bdd le produit dont l'id est transmis dans
          * 6-afficher les informations du produit (titre, description, prix, image) dans le template 'app/product_details.html.twig'
          */
         //1-selection tous les produits de la table product de la BDd
+        
+        // $repoProducts = $entityManager->getRepository(Product::class);
+       
 
+        //2-transmettre les produits à la vue au template les produit selectionnes (render())
+       
+       $dbProduct =  $repoProducts->findAll();
+    //    dump($dbProduct);
+        return $this->render('app/index.html.twig', [
 
-        return $this->render('app/index.html.twig', []);
+             'dbProduct' => $dbProduct
 
-
+        ]);
     }
+
+
+    #[Route('/product/details/{id}',name: 'app_product_details')]
+    public function appProductDetails($id,EntityManagerInterface $entityManager, ProductRepository $repoProducts): Response
+    {
+
+         $product = $repoProducts->find($id);
+       // dump($product);
+    
+      return $this->render('app/product.details.html.twig', [
+            'product' => $product
+            ]);
+    }
+
 
     #[Route('/products', name: 'app_products')]
     public function appProducts(): Response

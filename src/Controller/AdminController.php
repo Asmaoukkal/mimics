@@ -101,7 +101,7 @@ final class AdminController extends AbstractController
             return $this->redirectToRoute('app_admin_products');
         }
 
-        // $repoProduct : objet issu de la class ProductRepository
+        // $repoProduct : objet issu de la class 
         $repoProduct = $entityManager->getRepository(Product::class);
         $dbProduct = $repoProduct->findAll();
         // dump($dbProduct);

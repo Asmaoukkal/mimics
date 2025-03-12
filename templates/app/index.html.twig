@@ -4,6 +4,8 @@
 
 {% block body %}
 
+  
+
     <!-- slider section -->
     <section class="slider_section ">
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
@@ -98,32 +100,37 @@
 
 
   <!-- product section -->
-
+  
   <section class="product_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Our Products
+          Nos Produits
         </h2>
       </div>
+
       <div class="row">
+    {% for item in dbProduct %}
+
         <div class="col-sm-6 col-lg-4">
           <div class="box">
             <div class="img-box">
-              <img src="images/p1.png" alt="">
-              <a href="" class="add_cart_btn">
+              <img src="{{asset('uploads/images/'~ item.picture)}}" alt="{{ item.title }}"> 
+              <a href="{{ path('app_product_details', {'id': item.id}) }}" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  En savoir plus
                 </span>
               </a>
-            </div>
+          </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                {{ item.title }}
               </h5>
               <div class="product_info">
                 <h5>
-                  <span>$</span> 300
+                  <span>
+                    {{ item.price }}
+                  </span>€
                 </h5>
                 <div class="star_container">
                   <i class="fa fa-star" aria-hidden="true"></i>
@@ -136,7 +143,8 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-4">
+    {% endfor %}
+        {# <div class="col-sm-6 col-lg-4">
           <div class="box">
             <div class="img-box">
               <img src="images/p2.png" alt="">
@@ -368,13 +376,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> #}
       <div class="btn_box">
         <a href="" class="view_more-link">
-          View More
+         EN savoir plus
         </a>
       </div>
+     
     </div>
+   
   </section>
 
   <!-- end product section -->
